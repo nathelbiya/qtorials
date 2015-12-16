@@ -205,33 +205,6 @@ void paintQtLogoBig(QPainter *p, const QRect &rect)
     SvgRendererStore::artworkSvgRenderer()->render(p, svgId, QRect(logoX, logoY, logoWidth, logoHeight));
 }
 
-void paintSymbianLogoBig(QPainter *p, const QRect &rect)
-{
-    const QLatin1String svgId("symbianlogo");
-    const QRectF logoElementBounds =
-            SvgRendererStore::artworkSvgRenderer()->boundsOnElement(svgId);
-    const int logoHeight = qMin(rect.height() / 3, rect.width() / 4);
-    const int logoWidth = logoElementBounds.width() / logoElementBounds.height() * logoHeight;
-    const int logoY = (rect.height() - logoHeight) / 2;
-    const int logoX = (rect.width() - logoWidth) / 2;
-    SvgRendererStore::artworkSvgRenderer()->render(p, svgId, QRect(logoX, logoY, logoWidth, logoHeight));
-}
-
-void paintMaeomoOrgLogoBig(QPainter *p, const QRect &rect)
-{
-    const QLatin1String svgId("maemoorglogo");
-    const int logoHeightForRectHeight = int(qMin(rect.height() / 4.0, rect.width() * 0.15));
-    const int logoY = (rect.height() - logoHeightForRectHeight)
-             / 2 / codecBlockSize(rect.height()) * codecBlockSize(rect.height());
-    const int logoHeight = (rect.height() - 2*logoY)
-             / codecBlockSize(rect.height()) * codecBlockSize(rect.height());
-    const QRectF logoElementBounds =
-            SvgRendererStore::artworkSvgRenderer()->boundsOnElement(svgId);
-    const int logoWidth = logoElementBounds.width() / logoElementBounds.height() * logoHeight;
-    const int logoX = (rect.width() - logoWidth) / 2;
-    SvgRendererStore::artworkSvgRenderer()->render(p, svgId, QRect(logoX, logoY, logoWidth, logoHeight));
-}
-
 void paintCodecBlockPattern(QPainter *p, const QRect &rect)
 {
     QImage brush(codecBlockSize(rect.height()) * 2, codecBlockSize(rect.height()) * 2,
@@ -274,18 +247,6 @@ void paintCCByNcNd(QPainter *p, const QRect &rect)
 void paintCCBySa(QPainter *p, const QRect &rect)
 {
     paintCC(p, rect, QLatin1String("by-sa"));
-}
-
-void paintX2LogoBig(QPainter *p, const QRect &rect)
-{
-    const QLatin1String svgId("x2logo");
-    const QRectF logoElementBounds =
-            SvgRendererStore::artworkSvgRenderer()->boundsOnElement(svgId);
-    const int logoHeight = qMin(rect.height(), rect.width()) / 1.8;
-    const int logoWidth = logoElementBounds.width() / logoElementBounds.height() * logoHeight;
-    const int logoY = (rect.height() - logoHeight) / 2;
-    const int logoX = (rect.width() - logoWidth) / 2;
-    SvgRendererStore::artworkSvgRenderer()->render(p, svgId, QRect(logoX, logoY, logoWidth, logoHeight));
 }
 
 QTransform fitRect1InRect2Centered(const QRectF &rect1, const QRectF &rect2)
@@ -366,13 +327,10 @@ const ElementAndPainterHash& elementsAndPaintersHash()
         { QLatin1String("blockpattern"),        paintCodecBlockPattern },
         { QLatin1String("qtlogosmall"),         paintQtLogoSmall },
         { QLatin1String("qtlogobig"),           paintQtLogoBig },
-        { QLatin1String("symbianlogobig"),      paintSymbianLogoBig },
-        { QLatin1String("maemoorglogobig"),     paintMaeomoOrgLogoBig },
         { QLatin1String("codecblockpattern"),   paintCodecBlockPattern },
         { QLatin1String("cc-by-nc-sa"),         paintCCByNcSa },
         { QLatin1String("cc-by-nc-nd"),         paintCCByNcNd },
-        { QLatin1String("cc-by-sa"),            paintCCBySa },
-        { QLatin1String("x2logobig"),           paintX2LogoBig }
+        { QLatin1String("cc-by-sa"),            paintCCBySa }
     };
     return hash;
 }
