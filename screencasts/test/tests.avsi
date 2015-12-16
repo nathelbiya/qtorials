@@ -1,0 +1,4 @@
+function Blank()
+{
+    BlankClip(color = $ffffffff, length = 1000, width = 640, height = 480)
+}
